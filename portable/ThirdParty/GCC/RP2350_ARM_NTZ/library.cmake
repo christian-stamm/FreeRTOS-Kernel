@@ -4,6 +4,8 @@
 
 # Called after the Raspberry Pi Pico SDK has been initialized to add our libraries
 
+set(HEAP_VER 4 CACHE STRING "FreeRTOS heap version (1-5)")
+
 add_library(FreeRTOS-Kernel-Core INTERFACE)
 target_sources(FreeRTOS-Kernel-Core INTERFACE
         ${FREERTOS_KERNEL_PATH}/croutine.c
@@ -37,6 +39,7 @@ target_link_libraries(FreeRTOS-Kernel INTERFACE
         hardware_clocks
         hardware_exception
         pico_multicore
+        pico_time
 )
 
 target_compile_definitions(FreeRTOS-Kernel INTERFACE
@@ -52,22 +55,6 @@ target_compile_definitions(FreeRTOS-Kernel-Static INTERFACE
 
 target_link_libraries(FreeRTOS-Kernel-Static INTERFACE FreeRTOS-Kernel)
 
-add_library(FreeRTOS-Kernel-Heap1 INTERFACE)
-target_sources(FreeRTOS-Kernel-Heap1 INTERFACE ${FREERTOS_KERNEL_PATH}/portable/MemMang/heap_1.c)
-target_link_libraries(FreeRTOS-Kernel-Heap1 INTERFACE FreeRTOS-Kernel)
-
-add_library(FreeRTOS-Kernel-Heap2 INTERFACE)
-target_sources(FreeRTOS-Kernel-Heap2 INTERFACE ${FREERTOS_KERNEL_PATH}/portable/MemMang/heap_2.c)
-target_link_libraries(FreeRTOS-Kernel-Heap2 INTERFACE FreeRTOS-Kernel)
-
-add_library(FreeRTOS-Kernel-Heap3 INTERFACE)
-target_sources(FreeRTOS-Kernel-Heap3 INTERFACE ${FREERTOS_KERNEL_PATH}/portable/MemMang/heap_3.c)
-target_link_libraries(FreeRTOS-Kernel-Heap3 INTERFACE FreeRTOS-Kernel)
-
-add_library(FreeRTOS-Kernel-Heap4 INTERFACE)
-target_sources(FreeRTOS-Kernel-Heap4 INTERFACE ${FREERTOS_KERNEL_PATH}/portable/MemMang/heap_4.c)
-target_link_libraries(FreeRTOS-Kernel-Heap4 INTERFACE FreeRTOS-Kernel)
-
-add_library(FreeRTOS-Kernel-Heap5 INTERFACE)
-target_sources(FreeRTOS-Kernel-Heap5 INTERFACE ${FREERTOS_KERNEL_PATH}/portable/MemMang/heap_5.c)
-target_link_libraries(FreeRTOS-Kernel-Heap5 INTERFACE FreeRTOS-Kernel)
+add_library(FreeRTOS-Kernel-${HEAP_VER} INTERFACE)
+target_sources(FreeRTOS-Kernel-${HEAP_VER} INTERFACE ${FREERTOS_KERNEL_PATH}/portable/MemMang/heap_${HEAP_VER}.c)
+target_link_libraries(FreeRTOS-Kernel-${HEAP_VER} INTERFACE FreeRTOS-Kernel)
