@@ -55,6 +55,6 @@ target_compile_definitions(FreeRTOS-Kernel-Static INTERFACE
 
 target_link_libraries(FreeRTOS-Kernel-Static INTERFACE FreeRTOS-Kernel)
 
-add_library(FreeRTOS-Kernel-Heap${HEAP_VER} INTERFACE)
+add_library(FreeRTOS-Kernel-${HEAP_VER} INTERFACE)
 target_sources(FreeRTOS-Kernel-${HEAP_VER} INTERFACE ${FREERTOS_KERNEL_PATH}/portable/MemMang/heap_${HEAP_VER}.c)
 target_link_libraries(FreeRTOS-Kernel-${HEAP_VER} INTERFACE FreeRTOS-Kernel)

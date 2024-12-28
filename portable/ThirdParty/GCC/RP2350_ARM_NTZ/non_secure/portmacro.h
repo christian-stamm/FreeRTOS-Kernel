@@ -50,8 +50,8 @@ extern "C" {
  */
 
 #include "pico/time.h"
-#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS ()()
-#define portGET_RUN_TIME_COUNTER_VALUE         ()(time_us_32())
+#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS() (0)
+#define portGET_RUN_TIME_COUNTER_VALUE()         (time_us_64())
 
 /**
  * Architecture specifics.
